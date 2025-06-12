@@ -1,42 +1,42 @@
 package tests;
 
 import extensions.ProjectProperties;
-import extensions.User;
 import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pages.InterestsPage;
 import pages.ProfilePage;
 
 import java.io.IOException;
 
 @Epic("Тесты для Protractor")
-@Feature("Тесты страницы профиля")
-public class ProfileTests extends BaseTest {
+@Feature("Тесты страницы интересов")
+public class InterestsTests extends BaseTest {
     ProfilePage profilePage;
+    InterestsPage interestsPage;
 
     @BeforeMethod
     @Step("Инициализация драйвера на странице")
     public void setUp() {
         profilePage = new ProfilePage(driver);
+        interestsPage = profilePage.clickButton();
     }
 
     @Test
     @Severity(SeverityLevel.CRITICAL)
-    @Story("Тест с корретными данными name и email")
-    public void profileWithCorrectNameAndEmailTest() throws IOException {
-        String name = ProjectProperties.getProperty("name");
-        String email =  ProjectProperties.getProperty("email");
-        User userInput = new User(name, email);
-        profilePage.inputProfileData(userInput);
-        User userOutput = profilePage.getProfileData();
-        Assert.assertEquals(userInput, userOutput);
+    @Story("Тест с выбранным radiobutton")
+    public void interestWithRadiobuttonTest() throws IOException {
+        interestsPage.inputInterestsData();
+        String radioButtonOutput = interestsPage.getRadioButtonData();
+        String expectedText = ProjectProperties.getProperty("radioButtonXbox");
+        Assert.assertEquals(radioButtonOutput, expectedText);
     }
 
     @AfterMethod
     @Step("Очистка тестовых данных страницы")
     public void tearDown() {
-        profilePage.clearAllFields();
+        interestsPage.clearAllFields();
     }
 }

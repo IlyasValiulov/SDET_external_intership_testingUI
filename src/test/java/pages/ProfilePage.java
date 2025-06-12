@@ -11,32 +11,50 @@ import org.openqa.selenium.support.FindBy;
 import java.util.concurrent.TimeUnit;
 
 public class ProfilePage extends BasePage {
-    @FindBy(xpath = "//input[@name='name']")
+    @FindBy(name = "name")
     private WebElement name;
 
-    @FindBy(xpath = "//input[@name='email']")
+    @FindBy(name = "email")
     private WebElement email;
 
-    @FindBy(xpath = "//pre")
+    @FindBy(css = ".ng-binding")
     private WebElement json;
 
-    @FindBy(xpath = "//a[contains(@class, 'btn')]")
+    @FindBy(linkText = "Next Section")
     private WebElement button;
 
     public ProfilePage(WebDriver driver) {
         super(driver);
     }
 
+    @Step("Запись имени в поле name")
+    public ProfilePage inputName(String name) {
+        this.name.sendKeys(name);
+        return new ProfilePage(driver);
+    }
+
+    @Step("Запись почты в поле email")
+    public ProfilePage inputEmail(String email) {
+        this.email.sendKeys(email);
+        return new ProfilePage(driver);
+    }
+
     @Step("Запись данных в поля профиля")
     public ProfilePage inputProfileData(User user) {
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         clearAllFields();
-        this.name.sendKeys(user.name);
-        this.email.sendKeys(user.email);
+        inputName(user.name);
+        inputEmail(user.email);
         return new ProfilePage(driver);
     }
 
-    @Step("Извлечение данных в json поле")
+    @Step("Нажати на кнопку Next Section")
+    public InterestsPage clickButton() {
+        button.click();
+        return new InterestsPage(driver);
+    }
+
+    @Step("Извлечение данных из json поля")
     public User getProfileData() {
         User user = null;
         ObjectMapper mapper = new ObjectMapper();
