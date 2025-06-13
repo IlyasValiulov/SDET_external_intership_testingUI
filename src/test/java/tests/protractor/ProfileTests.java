@@ -1,4 +1,4 @@
-package tests;
+package tests.protractor;
 
 import extensions.ProjectProperties;
 import extensions.User;
@@ -7,7 +7,8 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pages.ProfilePage;
+import pages.protractor.ProfilePage;
+import tests.BaseTest;
 
 import java.io.IOException;
 
@@ -15,6 +16,11 @@ import java.io.IOException;
 @Feature("Тесты страницы профиля")
 public class ProfileTests extends BaseTest {
     ProfilePage profilePage;
+    static final String resourseNamePage = "profilePageLink";
+
+    public ProfileTests() throws IOException {
+        super(resourseNamePage);
+    }
 
     @BeforeMethod
     @Step("Инициализация драйвера на странице")

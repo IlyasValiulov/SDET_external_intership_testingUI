@@ -1,13 +1,14 @@
-package tests;
+package tests.protractor;
 
 import extensions.ProjectProperties;
 import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pages.InterestsPage;
-import pages.PaymentPage;
-import pages.ProfilePage;
+import pages.protractor.InterestsPage;
+import pages.protractor.PaymentPage;
+import pages.protractor.ProfilePage;
+import tests.BaseTest;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -18,6 +19,11 @@ public class PaymentTests extends BaseTest {
     ProfilePage profilePage;
     InterestsPage interestsPage;
     PaymentPage paymentPage;
+    static final String resourseNamePage = "profilePageLink";
+
+    public PaymentTests() throws IOException {
+        super(resourseNamePage);
+    }
 
     @BeforeMethod
     @Step("Инициализация драйвера на странице")
