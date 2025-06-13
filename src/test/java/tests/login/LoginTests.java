@@ -44,4 +44,17 @@ public class LoginTests extends BaseTest {
             Assert.assertEquals(exceptedMessage, loginPage.getExceptionText());
         }
     }
+
+    @Test
+    @Severity(SeverityLevel.MINOR)
+    @Story("Падающий тест для проверки работы скриншотов")
+    public void submitFailedTest() throws IOException {
+        String username = "username";
+        String password = "password";
+        String usernameDescription = "usrDesc";
+        HomePage homePage = loginPage.submitFormSucceed(username, password, usernameDescription);
+
+        String exceptedH1 = ProjectProperties.getProperty("HomePageH1");
+        Assert.assertEquals(exceptedH1, homePage.getH1Value());
+    }
 }
