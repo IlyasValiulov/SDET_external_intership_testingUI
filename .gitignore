@@ -10,3 +10,5 @@ target/
 *.ipr
 
 .allure
+
+cookie.txt
