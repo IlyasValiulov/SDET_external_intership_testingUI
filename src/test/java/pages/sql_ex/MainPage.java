@@ -48,4 +48,9 @@ public class MainPage extends BasePage {
             return false;
         }
     }
+
+    @Step("Проверка что поле login активно")
+    public boolean isLoginActive() {
+        return login.isSelected();
+    }
 }
