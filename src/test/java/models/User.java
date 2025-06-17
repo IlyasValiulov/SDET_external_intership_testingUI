@@ -1,4 +1,4 @@
-package extensions;
+package models;
 
 import io.qameta.allure.Step;
 

@@ -2,11 +2,13 @@ package pages.protractor;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import extensions.User;
+import models.User;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pages.BasePage;
 
 import java.util.concurrent.TimeUnit;
@@ -23,6 +25,10 @@ public class ProfilePage extends BasePage {
 
     @FindBy(linkText = "Next Section")
     private WebElement button;
+
+    private ObjectMapper mapper = new ObjectMapper();
+
+    private static final Logger logger = LoggerFactory.getLogger(InterestsPage.class);
 
     public ProfilePage(WebDriver driver) {
         super(driver);
@@ -57,15 +63,13 @@ public class ProfilePage extends BasePage {
 
     @Step("Извлечение данных из json поля")
     public User getProfileData() {
-        User user = null;
-        ObjectMapper mapper = new ObjectMapper();
         try {
-            user = mapper.readValue(json.getText(), User.class);
+            return mapper.readValue(json.getText(), User.class);
         }
         catch (JsonProcessingException ex) {
-            ex.getMessage();
+            logger.error(ex.getMessage());
+            throw new RuntimeException(ex);
         }
-        return user;
     }
 
     @Step("Очистка полей страницы")

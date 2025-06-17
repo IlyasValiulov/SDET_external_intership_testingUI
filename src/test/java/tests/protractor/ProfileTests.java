@@ -1,8 +1,13 @@
 package tests.protractor;
 
 import extensions.ProjectProperties;
-import extensions.User;
-import io.qameta.allure.*;
+import models.User;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.Step;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -35,8 +40,9 @@ public class ProfileTests extends BaseTest {
         String name = ProjectProperties.getProperty("name");
         String email =  ProjectProperties.getProperty("email");
         User userInput = new User(name, email);
-        profilePage.inputProfileData(userInput);
-        User userOutput = profilePage.getProfileData();
+        User userOutput = profilePage
+                .inputProfileData(userInput)
+                .getProfileData();
         Assert.assertEquals(userInput, userOutput);
     }
 

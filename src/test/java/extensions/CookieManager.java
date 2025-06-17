@@ -2,12 +2,19 @@ package extensions;
 
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
+import pages.sql_ex.MainPage;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Set;
 
 public class CookieManager {
     private final String cookieFile;
+
+    private MainPage mainPage;
 
     public CookieManager() throws IOException {
         cookieFile = ProjectProperties.getProperty("cookieFile");
@@ -40,9 +47,22 @@ public class CookieManager {
         }
     }
 
+    public void authUser(WebDriver driver, String login, String password) {
+        if (existCookies()) {
+            readCookies(driver);
+            driver.navigate().refresh();
+        }
+        else {
+            mainPage = new MainPage(driver);
+            mainPage.setLogin(login);
+            mainPage.setPassword(password);
+            mainPage.submitForm();
+            writeCookies(driver);
+        }
+    }
+
     public boolean existCookies() {
         if (cookieFile == null) return false;
-        File file = new File(cookieFile);
-        return file.exists();
+        return new File(cookieFile).exists();
     }
 }

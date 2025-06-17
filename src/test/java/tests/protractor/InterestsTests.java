@@ -1,7 +1,12 @@
 package tests.protractor;
 
 import extensions.ProjectProperties;
-import io.qameta.allure.*;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.Step;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -35,9 +40,9 @@ public class InterestsTests extends BaseTest {
     @Story("Тест с выбранным radiobutton")
     public void interestWithRadiobuttonTest() throws IOException {
         interestsPage.inputInterestsData();
-        String radioButtonOutput = interestsPage.getRadioButtonData();
+        String actualText = interestsPage.getRadioButtonData();
         String expectedText = ProjectProperties.getProperty("radioButtonXbox");
-        Assert.assertEquals(radioButtonOutput, expectedText);
+        Assert.assertEquals(actualText, expectedText);
     }
 
     @AfterMethod

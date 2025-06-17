@@ -37,24 +37,15 @@ public class MainPageTests extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Story("Тест авторизации при использовании куков")
     public void profileWithCorrectNameAndEmailTest() throws IOException {
-        if (cookieManager.existCookies()) {
-            cookieManager.readCookies(driver);
-            driver.navigate().refresh();
-        }
-        else {
-            String login = ProjectProperties.getProperty("sqlLogin");
-            String password = ProjectProperties.getProperty("sqlPassword");
-            mainPage.setLogin(login);
-            mainPage.setPassword(password);
-            mainPage.submitForm();
-            cookieManager.writeCookies(driver);
-        }
+        String login = ProjectProperties.getProperty("sqlLogin");
+        String password = ProjectProperties.getProperty("sqlPassword");
+        cookieManager.authUser(driver, login, password);
         Assert.assertFalse(mainPage.elementsExist());
     }
 
     @Test
     @Severity(SeverityLevel.CRITICAL)
-    @Story("Тест проверки работоспособности функций JsEcecutor")
+    @Story("Тест проверки работоспособности функций JsExecutor")
     public void jsExecutorTest() {
         js = new JsExecutor();
         SoftAssert softAssert = new SoftAssert();

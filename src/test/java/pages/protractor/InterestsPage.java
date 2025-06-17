@@ -7,6 +7,8 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pages.BasePage;
 
 import java.util.concurrent.TimeUnit;
@@ -20,6 +22,10 @@ public class InterestsPage extends BasePage {
 
     @FindBy(linkText = "Next Section")
     private WebElement button;
+
+    private ObjectMapper mapper = new ObjectMapper();
+
+    private static final Logger logger = LoggerFactory.getLogger(InterestsPage.class);
 
     public InterestsPage(WebDriver driver) {
         super(driver);
@@ -39,7 +45,7 @@ public class InterestsPage extends BasePage {
         return new InterestsPage(driver);
     }
 
-    @Step("Нажати на кнопку Next Section")
+    @Step("Нажатие на кнопку Next Section")
     public PaymentPage clickButton() {
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         button.click();
@@ -48,16 +54,14 @@ public class InterestsPage extends BasePage {
 
     @Step("Извлечение данных из json поля")
     public String getRadioButtonData() {
-        String radioButton = null;
-        ObjectMapper mapper = new ObjectMapper();
         try {
-            JsonNode node = node = mapper.readTree(json.getText());
-            radioButton = node.get("type").asText();
+            JsonNode node = mapper.readTree(json.getText());
+            return node.get("type").asText();
         }
         catch (JsonProcessingException ex) {
-            ex.getMessage();
+            logger.error(ex.getMessage());
+            throw new RuntimeException(ex);
         }
-        return radioButton;
     }
 
     @Step("Очистка полей страницы")

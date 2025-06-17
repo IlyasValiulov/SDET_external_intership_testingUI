@@ -1,7 +1,12 @@
 package tests.protractor;
 
 import extensions.ProjectProperties;
-import io.qameta.allure.*;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.Step;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -39,8 +44,8 @@ public class PaymentTests extends BaseTest {
     public void paymentSuccessfulTest() throws IOException {
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         paymentPage.clickButtonSubmit();
-        String testmessage = paymentPage.getAlertText();
-        String needMessage = ProjectProperties.getProperty("submitMessage");
-        Assert.assertEquals(testmessage, needMessage);
+        String actualMessage = paymentPage.getAlertText();
+        String expectedMessage = ProjectProperties.getProperty("submitMessage");
+        Assert.assertEquals(actualMessage, expectedMessage);
     }
 }

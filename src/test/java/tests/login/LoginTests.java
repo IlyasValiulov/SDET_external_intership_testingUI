@@ -1,9 +1,14 @@
 package tests.login;
 
-import extensions.DProvider;
-import extensions.LoginData;
+import extensions.LoginDataProvider;
+import models.LoginData;
 import extensions.ProjectProperties;
-import io.qameta.allure.*;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.Step;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -29,7 +34,7 @@ public class LoginTests extends BaseTest {
         loginPage = new LoginPage(driver);
     }
 
-    @Test(dataProvider = "testLoginData", dataProviderClass = DProvider.class)
+    @Test(dataProvider = "testLoginData", dataProviderClass = LoginDataProvider.class)
     @Severity(SeverityLevel.CRITICAL)
     @Story("Тесты для формы входа")
     public void submitFormTest(LoginData loginData) throws IOException {

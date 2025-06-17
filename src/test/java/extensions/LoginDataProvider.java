@@ -1,8 +1,9 @@
 package extensions;
 
+import models.LoginData;
 import org.testng.annotations.DataProvider;
 
-public class DProvider {
+public class LoginDataProvider {
 
     @DataProvider(name = "testLoginData")
     public LoginData[] loadLoginData() {
