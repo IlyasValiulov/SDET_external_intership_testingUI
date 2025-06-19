@@ -28,7 +28,7 @@ public class ProfilePage extends BasePage {
 
     private ObjectMapper mapper = new ObjectMapper();
 
-    private static final Logger logger = LoggerFactory.getLogger(InterestsPage.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProfilePage.class);
 
     public ProfilePage(WebDriver driver) {
         super(driver);
@@ -50,8 +50,8 @@ public class ProfilePage extends BasePage {
     public ProfilePage inputProfileData(User user) {
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
         clearAllFields();
-        inputName(user.name);
-        inputEmail(user.email);
+        inputName(user.getName());
+        inputEmail(user.getEmail());
         return new ProfilePage(driver);
     }
 

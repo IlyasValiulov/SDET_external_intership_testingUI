@@ -1,17 +1,16 @@
 package models;
 
 import io.qameta.allure.Step;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
-    public String name;
-    public String email;
-
-    public User() {}
-
-    public User(String name, String email) {
-        this.name = name;
-        this.email = email;
-    }
+    private String name;
+    private String email;
 
     @Override
     @Step("Проверка эквивалентности данных")
