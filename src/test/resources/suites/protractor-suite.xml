@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Protractor Test Suite">
+    <test name="Protractor Tests">
+        <classes>
+            <class name="tests.protractor.InterestsTests"/>
+            <class name="tests.protractor.PaymentTests"/>
+            <class name="tests.protractor.ProfileTests"/>
+        </classes>
+    </test>
+</suite>
