@@ -27,18 +27,18 @@ public class AlertPage extends BasePage {
     }
 
     @Step("Ввод имени")
-    public void inputName(String name) {
+    public AlertPage inputName(String name) {
         clickInputAlert();
         performInFrame(() -> {
             inputBoxButton.click();
             inputNameInAlert(name);
         });
+        return this;
     }
 
-    @Step("Проверка, что введенное имя используется в label")
-    public boolean checkUsageName(String name) {
-        String text = performInFrame(() -> label.getText());
-        return text.contains(name);
+    @Step("Извлечение текста из label")
+    public String getUsageName() {
+        return performInFrame(() -> label.getText());
     }
 
     @Step("Нажатие на кнопку Input Alert")

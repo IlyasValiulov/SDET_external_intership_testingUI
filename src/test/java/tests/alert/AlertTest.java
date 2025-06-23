@@ -35,9 +35,10 @@ public class AlertTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Story("Тесты ввода имени")
     public void alertTest() throws IOException {
-        String name = ProjectProperties.getProperty("alertName");
-        alertPage.inputName(name);
-        boolean usageName = alertPage.checkUsageName(name);
-        Assert.assertTrue(usageName);
+        String expected = ProjectProperties.getProperty("alertName");
+        String actual = alertPage
+                .inputName(expected)
+                .getUsageName();
+        Assert.assertEquals(actual, expected);
     }
 }
