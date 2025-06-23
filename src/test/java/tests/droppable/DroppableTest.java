@@ -40,8 +40,9 @@ public class DroppableTest extends BaseTest {
         String expectedDroppableText = ProjectProperties.getProperty("expectedDroppableTextBeforeDragAndDrop");
         softAssert.assertEquals(actualDroppableText, expectedDroppableText);
 
-        droppablePage.dragAndDropDraggableElement();
-        actualDroppableText = droppablePage.getDroppableElementText();
+        actualDroppableText = droppablePage
+                .dragAndDropDraggableElement()
+                .getDroppableElementText();
         expectedDroppableText = ProjectProperties.getProperty("expectedDroppableTextAfterDragAndDrop");
         softAssert.assertEquals(actualDroppableText, expectedDroppableText);
         softAssert.assertAll();

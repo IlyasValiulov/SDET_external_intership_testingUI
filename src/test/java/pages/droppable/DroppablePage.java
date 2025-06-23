@@ -24,10 +24,11 @@ public class DroppablePage extends BasePage {
     }
 
     @Step("Перетаскивание элемента draggableElement в принимающий droppableElement")
-    public void dragAndDropDraggableElement() {
+    public DroppablePage dragAndDropDraggableElement() {
         performInFrame(() -> {
             new Actions(driver).dragAndDrop(draggableElement, droppableElement).perform();
         });
+        return this;
     }
 
     @Step("Извлечение значения принимающего элемента")
