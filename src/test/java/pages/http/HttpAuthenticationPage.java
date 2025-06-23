@@ -24,12 +24,13 @@ public class HttpAuthenticationPage extends BasePage {
     }
 
     @Step("Авторизация")
-    public void authentication(String login, String password) {
+    public HttpAuthenticationPage authentication(String login, String password) {
         httpBasicAuth(login, password);
+        return this;
     }
 
     @Step("Проверка, что авторизация успешно прошла")
-    public boolean checkAuthentication() {
+    public boolean isAuthenticatedImageDisplayed() {
         return authenticatedImage.isDisplayed();
     }
 

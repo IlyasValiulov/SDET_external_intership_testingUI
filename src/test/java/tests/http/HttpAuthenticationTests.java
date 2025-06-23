@@ -38,8 +38,9 @@ public class HttpAuthenticationTests extends BaseTest {
     public void authenticationTest() throws IOException {
         String login = ProjectProperties.getProperty("httpLogin");
         String password = ProjectProperties.getProperty("httpPassword");
-        httpAuthenticationPage.authentication(login, password);
-        boolean checkAuth = httpAuthenticationPage.checkAuthentication();
-        Assert.assertTrue(checkAuth);
+        boolean actual = httpAuthenticationPage
+                .authentication(login, password)
+                .isAuthenticatedImageDisplayed();
+        Assert.assertTrue(actual);
     }
 }
