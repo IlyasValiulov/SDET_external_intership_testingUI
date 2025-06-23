@@ -1,6 +1,7 @@
 package tests.login;
 
 import extensions.LoginDataProvider;
+import extensions.RetryAnalyzer;
 import models.LoginData;
 import extensions.ProjectProperties;
 import io.qameta.allure.Epic;
@@ -50,7 +51,7 @@ public class LoginTests extends BaseTest {
         }
     }
 
-    @Test
+    @Test(retryAnalyzer = RetryAnalyzer.class)
     @Severity(SeverityLevel.MINOR)
     @Story("Падающий тест для проверки работы скриншотов")
     public void submitFailedTest() throws IOException {
