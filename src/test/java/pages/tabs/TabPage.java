@@ -18,16 +18,18 @@ public class TabPage extends BasePage {
     }
 
     @Step("Нажатие на ссылку и переход на новую вкладку от главного окна")
-    public void newTabFromMainWindow() {
+    public TabPage newTabFromMainWindow() {
         driver.switchTo().frame(iframe);
         tabLink.click();
         switchNextWindow();
         driver.switchTo().defaultContent();
+        return this;
     }
 
     @Step("Нажатие на ссылку и переход на новую вкладку")
-    public void newTabFromWindow() {
+    public TabPage newTabFromWindow() {
         tabLink.click();
+        return this;
     }
 
     @Step("Получение количества дескрипторов вкладок")
