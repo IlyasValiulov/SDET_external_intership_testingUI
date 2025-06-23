@@ -1,5 +1,6 @@
 package extensions;
 
+import enums.ProjectBrowser;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -15,23 +16,24 @@ import java.net.URL;
 public class DriverFactory {
     public WebDriver createDriver(String browserName, boolean grid) throws IOException {
         if (grid)
-            return createDriverWithGrid(browserName);
-        return createDriverWithoutGrid(browserName);
+            return createRemoteDriver(browserName);
+        return createLocalDriver(browserName);
     }
 
-    private WebDriver createDriverWithoutGrid(String browserName) {
+    private WebDriver createLocalDriver(String browserName) {
         WebDriver driver = null;
-        switch (browserName) {
-            case "firefox":
+        ProjectBrowser browser = ProjectBrowser.fromString(browserName);
+        switch (browser) {
+            case Firefox:
                 driver = new FirefoxDriver();
                 break;
-            case "chrome":
+            case Chrome:
                 driver = new ChromeDriver();
                 break;
-            case "edge":
+            case Edge:
                 driver = new EdgeDriver();
                 break;
-            case "internet_explorer":
+            case Internet_explorer:
                 InternetExplorerOptions options = new InternetExplorerOptions();
                 options.ignoreZoomSettings();
                 options.requireWindowFocus();
@@ -44,23 +46,11 @@ public class DriverFactory {
         return driver;
     }
 
-    private WebDriver createDriverWithGrid(String browserName) throws IOException {
+    private WebDriver createRemoteDriver(String browserName) throws IOException {
         String hub_url = ProjectProperties.getProperty("hub_url");
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        switch (browserName) {
-            case "chrome":
-                capabilities.setBrowserName("chrome");
-                break;
-            case "firefox":
-                capabilities.setBrowserName("firefox");
-                break;
-            case "edge":
-                capabilities.setBrowserName("MicrosoftEdge");
-                break;
-            case "ie":
-                capabilities.setBrowserName("internet explorer");
-                break;
-        }
+        ProjectBrowser browser = ProjectBrowser.fromString(browserName);
+        capabilities.setBrowserName(browser.getBrowserName());
         return new RemoteWebDriver(new URL(hub_url), capabilities);
     }
 }
